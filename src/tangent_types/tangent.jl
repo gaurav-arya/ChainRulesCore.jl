@@ -29,7 +29,7 @@ struct Tangent{P,T} <: AbstractTangent
     function Tangent{P,T}(backing) where {P,T}
         if P <: Tuple
             T <: Tuple || _backing_error(P, T, Tuple)
-        elseif P <: AbstractDict
+        elseif P <: AbstractDict && !(P <: Base.Iterators.Pairs)
             T <: AbstractDict || _backing_error(P, T, AbstractDict)
         elseif P === Any  # can be anything
         else  # Any other struct (including NamedTuple)
